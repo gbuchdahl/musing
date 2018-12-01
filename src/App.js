@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import fire from './firebase';
 
 class App extends Component {
   constructor() {
@@ -8,11 +8,12 @@ class App extends Component {
     this.state = {
       firstname: '',
       lastname: '',
+      username: '',
       password: '',
-      usertype: '',
-      username: ''
+      usertype: ''
     }
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   render() {
     return (
@@ -24,7 +25,7 @@ class App extends Component {
         </header>
         <div className='container'>
           <section className='add-user'>
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <input type="text" name="firstname" placeholder="First Name" onChange={this.handleChange} value={this.state.firstname}/>
               <input type="text" name="lastname" placeholder="Last Name" onChange={this.handleChange} value={this.state.lastname}/>
               <input type="text" name="username" placeholder="Username" onChange={this.handleChange} value={this.state.username}/>
@@ -48,6 +49,26 @@ class App extends Component {
       this.setState({
         [e.target.name]: e.target.value
       });
+    }
+
+    handleSubmit(e) {
+      e.preventDefault();
+      const usersRef = fire.database().ref('users');
+      const user = {
+        firstname: this.state.firstname,
+        lastname: this.state.lastname,
+        username: this.state.username,
+        password: this.state.password,
+        usertype: this.state.usertype
+      }
+      usersRef.push(user);
+      this.setState({
+        firstname: '',
+        lastname: '',
+        username: '',
+        password: '',
+        usertype: ''
+      })
     }
 
 }
