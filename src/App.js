@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import fire from './firebase';
+import fire from './firebase.js';
 
 class App extends Component {
   constructor() {
@@ -8,7 +8,7 @@ class App extends Component {
     this.state = {
       firstname: '',
       lastname: '',
-      username: '',
+      email: '',
       password: '',
       usertype: ''
     }
@@ -28,7 +28,7 @@ class App extends Component {
             <form onSubmit={this.handleSubmit}>
               <input type="text" name="firstname" placeholder="First Name" onChange={this.handleChange} value={this.state.firstname}/>
               <input type="text" name="lastname" placeholder="Last Name" onChange={this.handleChange} value={this.state.lastname}/>
-              <input type="text" name="username" placeholder="Username" onChange={this.handleChange} value={this.state.username}/>
+              <input type="text" name="email" placeholder="Email" onChange={this.handleChange} value={this.state.email}/>
               <input type="text" name="password" placeholder="Password" onChange={this.handleChange} value={this.state.password}/>
               {/*radio button>*/}
               <input type="radio" id="userType1" name="usertype" onChange={this.handleChange} value="student"/>
@@ -57,7 +57,7 @@ class App extends Component {
       const user = {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
-        username: this.state.username,
+        email: this.state.email,
         password: this.state.password,
         usertype: this.state.usertype
       }
@@ -65,7 +65,7 @@ class App extends Component {
       this.setState({
         firstname: '',
         lastname: '',
-        username: '',
+        email: '',
         password: '',
         usertype: ''
       })
